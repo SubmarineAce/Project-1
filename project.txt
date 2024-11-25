@@ -1,0 +1,28 @@
+# Getting the input to change the chance and despawn time (ticks) of the file
+chance = input("Legendary spawn chance (high, medium, low): ").strip().lower()
+despawn_time = input("Legendary despawn time (high, medium, low): ").strip().lower()
+
+# Opening spawning.yml to read and overwrite the file
+with open("spawning.yml", "r") as file:
+    lines = file.readlines()
+
+# Updating the file based on user input
+for i, line in enumerate(lines):
+    if "legendary-spawn-chance:" in line:
+        if chance == "high":
+            lines[i] = "legendary-spawn-chance: 0.90000001192092896\n"
+        elif chance == "low":
+            lines[i] = "legendary-spawn-chance: 0.10000001192092896\n"
+    if "legendary-despawn-ticks:" in line:
+        if despawn_time == "high":
+            lines[i] = "legendary-despawn-ticks: 9000\n"
+        elif despawn_time == "medium":
+            lines[i] = "legendary-despawn-ticks: 6000\n"
+        elif despawn_time == "low":
+            lines[i] = "legendary-despawn-ticks: 3000\n"
+
+# Writing the updated lines back to the file
+with open("spawning.yml", "w") as file:
+    file.writelines(lines)
+
+print("Spawning chances and despawn time for legendaries have been updated.")
